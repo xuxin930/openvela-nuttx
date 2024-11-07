@@ -124,3 +124,30 @@ if(CONFIG_LIB_COMPILER_RT)
   endif()
 
 endif()
+
+if(CONFIG_COVERAGE_COMPILER_RT)
+
+  nuttx_add_system_library(rt.profile)
+
+  target_include_directories(
+    rt.profile PRIVATE ${INCDIR}
+                       ${CMAKE_CURRENT_LIST_DIR}/compiler-rt/lib/profile)
+
+  target_compile_options(rt.profile PRIVATE -DCOMPILER_RT_HAS_UNAME -Wno-undef
+                                            -Wno-strict-prototypes -Wno-shadow)
+
+  set(SRCSTMP)
+  set(RT_PROFILE_SRCS InstrProfilingPlatform.c)
+
+  file(GLOB SRCSTMP ${CMAKE_CURRENT_LIST_DIR}/compiler-rt/lib/profile/*.c)
+  list(APPEND RT_PROFILE_SRCS ${SRCSTMP})
+
+  file(GLOB SRCSTMP ${CMAKE_CURRENT_LIST_DIR}/compiler-rt/lib/profile/*.cpp)
+  list(APPEND RT_PROFILE_SRCS ${SRCSTMP})
+
+  target_sources(rt.profile PRIVATE ${RT_PROFILE_SRCS})
+
+elseif(CONFIG_COVERAGE_MINI)
+  nuttx_add_system_library(rt.miniprofile)
+  target_sources(rt.profile PRIVATE ${CMAKE_CURRENT_LIST_DIR}/coverage.c)
+endif()
