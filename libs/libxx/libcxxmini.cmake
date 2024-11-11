@@ -35,7 +35,9 @@ target_sources(
           libcxxmini/libxx_deletea.cxx
           libcxxmini/libxx_deletea_sized.cxx
           libcxxmini/libxx_new.cxx
-          libcxxmini/libxx_newa.cxx)
+          libcxxmini/libxx_newa.cxx
+          libxx_dynamic_cast.cxx
+          libxx_typeinfo.cxx)
 
 # Why c++14? * libcxx seems to require c++11. * The compiler defaults varies:
 # clang/macOS (from xcode): 199711L gcc/ubuntu:               201402L * There is
