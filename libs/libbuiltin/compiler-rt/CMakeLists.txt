@@ -133,6 +133,9 @@ if(CONFIG_COVERAGE_COMPILER_RT)
     rt.profile PRIVATE ${INCDIR}
                        ${CMAKE_CURRENT_LIST_DIR}/compiler-rt/lib/profile)
 
+  target_compile_options(rt.profile -fno-profile-instr-generate
+                         -fno-coverage-mapping)
+
   target_compile_options(rt.profile PRIVATE -DCOMPILER_RT_HAS_UNAME -Wno-undef
                                             -Wno-strict-prototypes -Wno-shadow)
 
@@ -149,5 +152,9 @@ if(CONFIG_COVERAGE_COMPILER_RT)
 
 elseif(CONFIG_COVERAGE_MINI)
   nuttx_add_system_library(rt.miniprofile)
+
+  target_compile_options(rt.miniprofile -fno-profile-instr-generate
+                         -fno-coverage-mapping)
+
   target_sources(rt.profile PRIVATE ${CMAKE_CURRENT_LIST_DIR}/coverage.c)
 endif()
