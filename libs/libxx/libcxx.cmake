@@ -83,13 +83,6 @@ if(CONFIG_LIBSUPCXX)
   add_compile_definitions(__GLIBCXX__)
 endif()
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS ON)
-
-set(SRCS)
-set(SRCSTMP)
-
 file(GLOB SRCS ${CMAKE_CURRENT_LIST_DIR}/libcxx/src/*.cpp)
 file(GLOB SRCSTMP ${CMAKE_CURRENT_LIST_DIR}/libcxx/src/experimental/*.cpp)
 list(APPEND SRCS ${SRCSTMP})
